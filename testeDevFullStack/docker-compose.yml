@@ -1,0 +1,41 @@
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: laravel-app
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/var/www/html:delegated
+    healthcheck:
+      test: ["CMD-SHELL", "php -v >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - laravel
+
+  web:
+    image: nginx:1.27-alpine
+    container_name: laravel-web
+    depends_on:
+      app:
+        condition: service_started
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend:/var/www/html:ro
+      - ./docker/nginx:/etc/nginx/conf.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost/ >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge
