@@ -2,17 +2,24 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
-    public function toArray($request): array
+    /** @return array<string,mixed> */
+    public function toArray(Request $request): array
     {
-        // Funciona com arrays (stub) e com models depois (Eloquent)
+        // protege caso role_level esteja null em algum registro antigo
+        $role = is_null($this->role_level) ? 3 : (int) $this->role_level;
+
         return [
-            'id'    => $this['id']    ?? $this->id     ?? null,
-            'name'  => $this['name']  ?? $this->name   ?? null,
-            'email' => $this['email'] ?? $this->email  ?? null,
+            'id'         => (int) $this->id,
+            'name'       => (string) $this->name,
+            'email'      => (string) $this->email,
+            'role_level' => $role,
+            'created_at' => $this->whenNotNull($this->created_at),
+            'updated_at' => $this->whenNotNull($this->updated_at),
         ];
     }
 }

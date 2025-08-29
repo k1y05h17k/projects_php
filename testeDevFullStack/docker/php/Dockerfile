@@ -17,6 +17,8 @@ ENV APP_ENV=production \
     PHP_OPCACHE_MAX_ACCELERATED_FILES=20000 \
     PHP_OPCACHE_MEMORY_CONSUMPTION=128
 
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
 # Pacotes necessários (sqlite, gd opcional, etc.)
 RUN set -eux; \
     apk add --no-cache icu-dev oniguruma-dev libzip-dev zlib-dev sqlite-dev bash shadow tzdata; \
