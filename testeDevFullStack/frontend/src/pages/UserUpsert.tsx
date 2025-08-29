@@ -12,7 +12,7 @@ import { createUser } from '../api/users'
 const TOKEN_KEY = import.meta.env.VITE_AUTH_STORAGE_KEY || 'app_token'
 
 export default function UserUpsert() {
-  const { user, isAdmin, reload } = useAuth()
+  const { user, reload } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
 

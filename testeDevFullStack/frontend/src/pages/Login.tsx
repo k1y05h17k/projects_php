@@ -14,7 +14,7 @@ export default function Login() {
   const [password, setPassword] = useState("admin123");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const { user, loading: authLoading, reload } = useAuth();
 

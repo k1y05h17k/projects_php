@@ -1,7 +1,7 @@
 import { NavLink, Link } from 'react-router-dom'
 import Button from './ui/Button'
 import { useAuth } from '../context/AuthContext'
-import { roleDisplay } from '../utils/roles'
+
 
 export default function TopBar() {
   const { user, logout } = useAuth()
