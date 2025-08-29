@@ -1,4 +1,4 @@
-# Backend – Prova Fullstack (Laravel + JWT + SQLite + Docker)
+# Prova Fullstack (Laravel + JWT + SQLite + Docker)
 
 API REST básica com autenticação **JWT**, controle de acesso por **perfis (role_level)** e respostas de erro **JSON** padronizadas.
 
